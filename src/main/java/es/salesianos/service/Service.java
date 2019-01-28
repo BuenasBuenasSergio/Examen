@@ -28,8 +28,8 @@ public class Service {
 		repository.insert(actor);
 
 	}
-	public void insert(Film Film) {
-		repository.insert(Film);
+	public void insert(Film film) {
+		repository.insert(film);
 		
 	}
 	public void insert(Director director) {
@@ -40,8 +40,8 @@ public class Service {
 		repository.delete(actor);
 
 	}
-	public void delete(Film Film) {
-		repository.delete(Film);
+	public void delete(Film film) {
+		repository.delete(film);
 		
 	}
 	public void delete(Director director) {
