@@ -8,13 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.salesianos.connection.AbstractConnection;
-import es.salesianos.connection.H2Connection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import es.salesianos.model.Actor;
 
-public class ActorRepository {
+public class ActorRepository extends Repository {
 
-	private static final String jdbcUrl = "jdbc:h2:file:./src/main/resources/test";
-	AbstractConnection manager = new H2Connection();
+	private static final String jdbcUrl = getJdbcUrl();
+	AbstractConnection manager = getManager();
+	private static final Logger log = LogManager.getLogger(ActorRepository.class);
 
 	public List<Actor> selectAllActor() {
 		Connection conn = manager.open(jdbcUrl);
@@ -32,7 +34,7 @@ public class ActorRepository {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error(e);
 			throw new RuntimeException(e);
 		} finally {
 			manager.close(preparedStatement);
@@ -46,12 +48,12 @@ public class ActorRepository {
 		PreparedStatement preparedStatement = null;
 		try {
 			preparedStatement = conn
-					.prepareStatement("INSERT INTO ACTOR (name,yearOfBirthDate)" + "VALUES (?, ?)");
+					.prepareStatement("INSERT INTO ACTOR (name,yearOfBirthDate) VALUES (?, ?)");
 			preparedStatement.setString(1, actor.getName());
 			preparedStatement.setInt(2, actor.getYearOfBirthDate());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error(e);
 			throw new RuntimeException(e);
 		} finally {
 			manager.close(preparedStatement);
@@ -68,7 +70,7 @@ public class ActorRepository {
 			preparedStatement.setInt(1, actor.getCod());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error(e);
 			throw new RuntimeException(e);
 		} finally {
 			manager.close(preparedStatement);
@@ -90,13 +92,46 @@ public class ActorRepository {
 			actor.setYearOfBirthDate(resultSet.getInt(3));
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error(e);
 			throw new RuntimeException(e);
 		} finally {
 			manager.close(preparedStatement);
 			manager.close(conn);
 		}
 		return actor;
+	}
+
+	public List<Actor> filterActor(int startYear, int endYear) {
+		List<Actor> actorsList = new ArrayList<Actor>();
+		Connection conn = manager.open(jdbcUrl);
+		ResultSet resultSet = null;
+		PreparedStatement prepareStatement = null;
+		try {
+			prepareStatement = conn.prepareStatement(
+				
+				"SELECT cod, name, yearOfBirthDate FROM ACTOR WHERE yearOfBirthDate between ? AND ?"
+			);
+			prepareStatement.setInt(1, startYear);
+			prepareStatement.setInt(2, endYear);
+			resultSet = prepareStatement.executeQuery();
+			while (resultSet.next()) {
+				Actor actorInDatabase = new Actor();
+				actorInDatabase.setCod(resultSet.getInt(1));
+				actorInDatabase.setName(resultSet.getString(2));
+				actorInDatabase.setBirthYear(resultSet.getInt(3));
+				actorsList.add(actorInDatabase);
+			}
+
+		} catch (SQLException e) {
+			log.error(e);
+			throw new RuntimeException(e);
+		} finally {
+			manager.close(resultSet);
+			manager.close(prepareStatement);
+			manager.close(conn);
+		}
+
+		return actorsList;
 	}
 
 }

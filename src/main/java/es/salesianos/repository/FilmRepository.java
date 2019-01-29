@@ -15,11 +15,13 @@ public class FilmRepository {
 
 	private static final String jdbcUrl = "jdbc:h2:file:./src/main/resources/test";
 	AbstractConnection manager = new H2Connection();
+	private static final Logger log = LogManager.getLogger(FilmRepository.class);
 
 	public List<Film> selectAllFilm() {
 		Connection conn = manager.open(jdbcUrl);
 		PreparedStatement preparedStatement = null;
 		List<Film> list = new ArrayList<Film>();
+
 		try {
 			preparedStatement = conn.prepareStatement("SELECT * FROM FILM");
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -44,8 +46,9 @@ public class FilmRepository {
 	public void insert(Film film) {
 		Connection conn = manager.open(jdbcUrl);
 		PreparedStatement preparedStatement = null;
+
 		try {
-			preparedStatement = conn.prepareStatement("INSERT INTO FILM	 (tittle, codOwner)" + "VALUES (?, ?)");
+			preparedStatement = conn.prepareStatement("INSERT INTO FILM	 (tittle, codOwner) VALUES (?, ?)");
 			preparedStatement.setString(1, film.getTitle());
 			preparedStatement.setInt(2, film.getCodDirector());
 			preparedStatement.executeUpdate();
@@ -61,6 +64,7 @@ public class FilmRepository {
 	public void delete(Film film) {
 		Connection conn = manager.open(jdbcUrl);
 		PreparedStatement preparedStatement = null;
+		
 		try {
 			preparedStatement = conn.prepareStatement("DELETE FROM FILM WHERE cod = ?");
 			preparedStatement.setInt(1, film.getCod());

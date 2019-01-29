@@ -5,49 +5,40 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServlet;
 
+import es.salesianos.model.Actor;
+import es.salesianos.service.ActorService;
 
-import es.salesianos.model.Film;
-import es.salesianos.service.FilmService;
-
-public class FilmServlet extends HttpServlet {
-
+public class RecoveryFilmServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
-	private FilmService service = new FilmService();
+	private ActorService actorService = new ActorService();
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Film film = service.assembleFilmFromRequest(req);
-		service.insert(film);
 		doAction(req, resp);
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String codString = req.getParameter("cod");
+		String cod = req.getParameter("filmCod");
 		
-		if(null != codString) {
-			Film Film = new Film();
-			int cod = Integer.parseInt(codString);
-			Film.setCod(cod);
-			service.delete(Film);
-		}
+		req.setAttribute("filmCod", cod);
 		doAction(req, resp);
-	}
+		}
 
 	private void doAction(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		List<Film> selectAllFilm = service.selectAllFilm();
-		req.setAttribute("listAllFilm", selectAllFilm);
+		List<Actor> listAllActor = actorService.listAllActor();
+
+		req.setAttribute("listAllActor", listAllActor);
 		redirect(req, resp);
 	}
 
 	protected void redirect(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Film.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/chooseActor.jsp");
 		dispatcher.forward(req, resp);
 	}
 }

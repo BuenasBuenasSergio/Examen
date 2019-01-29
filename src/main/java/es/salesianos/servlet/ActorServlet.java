@@ -29,6 +29,7 @@ public class ActorServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String codString = req.getParameter("cod");
+		
 		if (codString != null) {
 			Actor actorToDelete = service.findById(Integer.parseInt(codString));
 			service.delete(actorToDelete);
@@ -37,7 +38,18 @@ public class ActorServlet extends HttpServlet {
 	}
 
 	private void doAction(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
+		String startDateString = req.getParameter("startYear");
+		
+		if (startDateString != null) {
+			int startDate = Integer.parseInt(req.getParameter("startYear"));
+			int endDate = Integer.parseInt(req.getParameter("endYear"));
+			List<Actor> filteredActors = service.filterActor(startDate, endDate);
+			req.setAttribute("listAllActor", filteredActors);
+		} else {
+			List<Actor> listAllActor = service.listAllActor();
+			req.setAttribute("listAllActor", listAllActor);
+		}
+		redirect(req, resp);
 	}
 
 	protected void redirect(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

@@ -31,5 +31,9 @@ public class ActorService {
 		public Actor findById(int code) {
 		return repository.findById(code);
 	}
+	
+	public List<Actor> filterActor(int sYear, int eYear) {
+		return repository.filterActor(sYear, eYear);
+	}
 
 }
