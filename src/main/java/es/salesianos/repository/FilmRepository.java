@@ -34,7 +34,7 @@ public class FilmRepository {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error(e);
 			throw new RuntimeException(e);
 		} finally {
 			manager.close(preparedStatement);
@@ -53,7 +53,7 @@ public class FilmRepository {
 			preparedStatement.setInt(2, film.getCodDirector());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error(e);
 			throw new RuntimeException(e);
 		} finally {
 			manager.close(preparedStatement);
@@ -70,7 +70,7 @@ public class FilmRepository {
 			preparedStatement.setInt(1, film.getCod());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error(e);
 			throw new RuntimeException(e);
 		} finally {
 			manager.close(preparedStatement);
