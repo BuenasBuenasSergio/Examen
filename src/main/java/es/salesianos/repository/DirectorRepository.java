@@ -7,12 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.salesianos.connection.AbstractConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import es.salesianos.model.Director;
-import es.salesianos.model.Film;
 
+import es.salesianos.connection.AbstractConnection;
+import es.salesianos.model.Director;
+
+@org.springframework.stereotype.Repository
 public class DirectorRepository extends Repository {
 
 	private static final String jdbcUrl = getJdbcUrl();
@@ -82,11 +83,10 @@ public class DirectorRepository extends Repository {
 		List<Director> list = new ArrayList<Director>();
 		try {
 			preparedStatement = conn.prepareStatement(
-				
-				"SELECT DIRECTOR.NAME FROM (((ACTOR"
-					+ " INNER JOIN FILMACTOR ON FILMACTOR.CODACTOR = ACTOR.COD)"
-					+ " INNER JOIN FILM ON FILM.COD = FILMACTOR.CODFILM)"
-					+ " INNER JOIN DIRECTOR ON DIRECTOR.COD = FILM.CODOWNER) WHERE ACTOR.NAME = (?)");
+
+					"SELECT DIRECTOR.NAME FROM (((ACTOR" + " INNER JOIN FILMACTOR ON FILMACTOR.CODACTOR = ACTOR.COD)"
+							+ " INNER JOIN FILM ON FILM.COD = FILMACTOR.CODFILM)"
+							+ " INNER JOIN DIRECTOR ON DIRECTOR.COD = FILM.CODOWNER) WHERE ACTOR.NAME = (?)");
 			preparedStatement.setString(1, name);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {

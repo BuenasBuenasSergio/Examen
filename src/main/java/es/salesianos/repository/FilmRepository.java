@@ -14,6 +14,7 @@ import es.salesianos.connection.AbstractConnection;
 import es.salesianos.connection.H2Connection;
 import es.salesianos.model.Film;
 
+@org.springframework.stereotype.Repository
 public class FilmRepository {
 
 	private static final String jdbcUrl = "jdbc:h2:file:./src/main/resources/test";

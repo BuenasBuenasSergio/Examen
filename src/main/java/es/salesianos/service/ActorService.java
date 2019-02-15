@@ -4,13 +4,19 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import es.salesianos.model.Actor;
 import es.salesianos.model.assembler.ActorAssembler;
 import es.salesianos.repository.ActorRepository;
 
+@Service
+
 public class ActorService {
 
-	private ActorRepository repository = new ActorRepository();
+	@Autowired
+	private ActorRepository repository;
 
 	public Actor assembleActorFromRequest(HttpServletRequest req) {
 		return ActorAssembler.assembleActorFrom(req);
@@ -28,10 +34,10 @@ public class ActorService {
 		repository.delete(actor);
 	}
 
-		public Actor findById(int code) {
+	public Actor findById(int code) {
 		return repository.findById(code);
 	}
-	
+
 	public List<Actor> filterActor(int sYear, int eYear) {
 		return repository.filterActor(sYear, eYear);
 	}

@@ -1,4 +1,4 @@
-package es.salesianos.servlet;
+package es.salesianos.controller;
 
 import java.io.IOException;
 
@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import es.salesianos.model.ActorFilmDTO;
+import es.salesianos.model.FilmActor;
+import es.salesianos.model.assembler.FilmActorAssembler;
 import es.salesianos.service.FilmActorService;
 
-public class SearchRoleServlet extends HttpServlet {
+public class FillFilmActorServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,25 +20,28 @@ public class SearchRoleServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		FilmActor filmActor = FilmActorAssembler.assembleFilmActorFrom(req);
+		
+		service.insert(filmActor);
 		doAction(req, resp);
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String codFilm = req.getParameter("filmCod");
+		String codActor = req.getParameter("actorCod");
+
+		req.setAttribute("codFilm", codFilm);
+		req.setAttribute("codActor", codActor);
 		doAction(req, resp);
 	}
 
 	private void doAction(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		String role = req.getParameter("role");
-		if (role != null) {
-			ActorFilmDTO selectedActorFilm = service.filterActorFilm(role);
-			req.setAttribute("selectedActorFilm", selectedActorFilm);
-		}
 		redirect(req, resp);
 	}
 
 	protected void redirect(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/searchRole.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fillFilmActor.jsp");
 		dispatcher.forward(req, resp);
 	}
 }
