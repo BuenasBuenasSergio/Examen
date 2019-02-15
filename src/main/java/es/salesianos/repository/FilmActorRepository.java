@@ -1,16 +1,16 @@
-ackage es.salesianos.repository;
+package es.salesianos.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import es.salesianos.connection.AbstractConnection;
-import es.salesianos.model.FilmActor;
 import es.salesianos.model.ActorFilmDTO;
+import es.salesianos.model.FilmActor;
 
 public class FilmActorRepository extends Repository {
 
@@ -38,11 +38,12 @@ public class FilmActorRepository extends Repository {
 			manager.close(conn);
 		}
 	}
+
 	public ActorFilmDTO filterActorFilm(String role) {
 		Connection conn = manager.open(jdbcUrl);
 		PreparedStatement preparedStatement = null;
 		ActorFilmDTO actorFilm = null;
-		
+
 		try {
 			preparedStatement = conn.prepareStatement("SELECT TITTLE, NAME, YEAROFBIRTHDATE FROM ((FILMACTOR"
 					+ " INNER JOIN FILM ON FILM.COD = FILMACTOR.CODFILM)"

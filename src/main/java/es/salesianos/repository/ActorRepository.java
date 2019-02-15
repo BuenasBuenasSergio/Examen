@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.salesianos.connection.AbstractConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import es.salesianos.connection.AbstractConnection;
 import es.salesianos.model.Actor;
 
 public class ActorRepository extends Repository {
@@ -47,8 +48,7 @@ public class ActorRepository extends Repository {
 		Connection conn = manager.open(jdbcUrl);
 		PreparedStatement preparedStatement = null;
 		try {
-			preparedStatement = conn
-					.prepareStatement("INSERT INTO ACTOR (name,yearOfBirthDate) VALUES (?, ?)");
+			preparedStatement = conn.prepareStatement("INSERT INTO ACTOR (name,yearOfBirthDate) VALUES (?, ?)");
 			preparedStatement.setString(1, actor.getName());
 			preparedStatement.setInt(2, actor.getYearOfBirthDate());
 			preparedStatement.executeUpdate();
@@ -108,9 +108,8 @@ public class ActorRepository extends Repository {
 		PreparedStatement prepareStatement = null;
 		try {
 			prepareStatement = conn.prepareStatement(
-				
-				"SELECT cod, name, yearOfBirthDate FROM ACTOR WHERE yearOfBirthDate between ? AND ?"
-			);
+
+					"SELECT cod, name, yearOfBirthDate FROM ACTOR WHERE yearOfBirthDate between ? AND ?");
 			prepareStatement.setInt(1, startYear);
 			prepareStatement.setInt(2, endYear);
 			resultSet = prepareStatement.executeQuery();
@@ -118,7 +117,7 @@ public class ActorRepository extends Repository {
 				Actor actorInDatabase = new Actor();
 				actorInDatabase.setCod(resultSet.getInt(1));
 				actorInDatabase.setName(resultSet.getString(2));
-				actorInDatabase.setBirthYear(resultSet.getInt(3));
+				actorInDatabase.setYearOfBirthDate(resultSet.getInt(3));
 				actorsList.add(actorInDatabase);
 			}
 

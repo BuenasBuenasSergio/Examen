@@ -27,3 +27,5 @@ public class ActorFilmDTO {
 
 	public void setBirthYear(int birthYear) {
 		this.birthYear = birthYear;
+	}
+}

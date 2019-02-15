@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import es.salesianos.connection.AbstractConnection;
 import es.salesianos.connection.H2Connection;
 import es.salesianos.model.Film;
@@ -64,7 +67,7 @@ public class FilmRepository {
 	public void delete(Film film) {
 		Connection conn = manager.open(jdbcUrl);
 		PreparedStatement preparedStatement = null;
-		
+
 		try {
 			preparedStatement = conn.prepareStatement("DELETE FROM FILM WHERE cod = ?");
 			preparedStatement.setInt(1, film.getCod());
