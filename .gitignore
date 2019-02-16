@@ -62,7 +62,6 @@ local.properties
 ### Eclipse Patch ###
 # Eclipse Core
 .project
-.target
 
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
@@ -110,7 +109,8 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
-
+###Target###
+target/
 
 #DB Trace
 src/main/resources/test.trace.db
