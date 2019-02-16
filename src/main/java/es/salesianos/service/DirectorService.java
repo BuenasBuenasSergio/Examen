@@ -9,12 +9,12 @@ import es.salesianos.model.Director;
 import es.salesianos.repository.DirectorRepository;
 
 @Service
-public class DirectorService {
+public class DirectorService implements IDirectorService {
 
 	@Autowired
 	private DirectorRepository repository;
 
-	public List<Director> selectAllDirector() {
+	public List<Director> listAllDirector() {
 		return repository.selectAllDirector();
 	}
 
@@ -22,12 +22,11 @@ public class DirectorService {
 		repository.insert(director);
 	}
 
-	public void delete(Director director) {
+	public void delete(int director) {
 		repository.delete(director);
 	}
 
 	public List<Director> filterDirector(String name) {
 		return repository.filterDirector(name);
 	}
-
 }

@@ -9,7 +9,7 @@ import es.salesianos.model.Film;
 import es.salesianos.repository.FilmRepository;
 
 @Service
-public class FilmService {
+public class FilmService implements IFIlmService {
 
 	@Autowired
 	private FilmRepository repository;
@@ -22,7 +22,7 @@ public class FilmService {
 		repository.insert(film);
 	}
 
-	public void delete(Film film) {
+	public void delete(int film) {
 		repository.delete(film);
 	}
 }

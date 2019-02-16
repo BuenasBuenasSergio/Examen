@@ -60,12 +60,12 @@ public class DirectorRepository extends Repository {
 		}
 	}
 
-	public void delete(Director director) {
+	public void delete(int director) {
 		Connection conn = manager.open(jdbcUrl);
 		PreparedStatement preparedStatement = null;
 		try {
 			preparedStatement = conn.prepareStatement("DELETE FROM DIRECTOR WHERE cod=?");
-			preparedStatement.setInt(1, director.getCod());
+			preparedStatement.setInt(1, director);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			log.error(e);

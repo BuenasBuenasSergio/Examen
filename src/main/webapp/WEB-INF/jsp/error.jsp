@@ -8,7 +8,7 @@
 <title>Error</title>
 </head>
 <body>
-<img alt="fatal error" src="<c:url value="resources/images/fatalerror.jpg"/>"/>
+<h1>FATAL EREROR</h1>
 <br/>
 	<a href="/index">Index</a><br/>
 </body>

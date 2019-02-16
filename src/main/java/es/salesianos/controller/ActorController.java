@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.salesianos.model.Actor;
-import es.salesianos.service.ActorService;
+import es.salesianos.service.IActorService;
 
 @Controller
 public class ActorController {
 	@Autowired
-	private ActorService service;
+	private IActorService service;
 
 	@PostMapping("/insertActor")
 	protected String insertActor(Actor actor) {

@@ -9,13 +9,12 @@ import es.salesianos.model.Actor;
 import es.salesianos.repository.ActorRepository;
 
 @Service
-
-public class ActorService {
+public class ActorService implements IActorService {
 
 	@Autowired
 	private ActorRepository repository;
 
-	public List<Actor> selectAllActor() {
+	public List<Actor> listAllActor() {
 		return repository.selectAllActor();
 	}
 
@@ -23,16 +22,15 @@ public class ActorService {
 		repository.insert(actor);
 	}
 
-	public void delete(Actor actor) {
-		repository.delete(actor);
+	public void delete(int code) {
+		repository.delete(code);
 	}
 
-	public Actor findById(int code) {
+	public Actor findByCod(int code) {
 		return repository.findById(code);
 	}
 
-	public List<Actor> filterActor(int sYear, int eYear) {
-		return repository.filterActor(sYear, eYear);
+	public List<Actor> filterActor(int startYear, int endYear) {
+		return repository.filterActor(startYear, endYear);
 	}
-
 }

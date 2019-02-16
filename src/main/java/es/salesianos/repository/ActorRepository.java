@@ -63,12 +63,12 @@ public class ActorRepository extends Repository {
 
 	}
 
-	public void delete(Actor actor) {
+	public void delete(int code) {
 		Connection conn = manager.open(jdbcUrl);
 		PreparedStatement preparedStatement = null;
 		try {
 			preparedStatement = conn.prepareStatement("DELETE FROM ACTOR WHERE cod=?");
-			preparedStatement.setInt(1, actor.getCod());
+			preparedStatement.setInt(1, code);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			log.error(e);

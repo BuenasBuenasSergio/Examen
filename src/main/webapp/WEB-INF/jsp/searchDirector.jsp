@@ -1,7 +1,7 @@
-<<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*,es.salesianos.model.*"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,16 +9,12 @@
 <title>Search directors</title>
 </head>
 <body>
-	
-	<%
-		List<Director> listFilterDirector = (List<Director>) request.getAttribute("listFilterDirector");
-	%>
+<h1>SEARCH DIRECTORS</h1>
 	<form action="/searchDirector" method="post">
 		<span>Search Actor: <input type="text" name="name"></span> <br />
 		<input type="submit">
 	</form>
-	<br />
-	<br />
+	<br/>
 	<table border="1">
 		<thead>
 			<tr>
@@ -36,6 +32,7 @@
 		</tbody>
 	</table>
 	<br/>
-	<a href="/index.jsp">Index</a><br/>
+	<a href="/index">Back to Index</a><br/>
 </body>
-</html> 
+</html>
+
