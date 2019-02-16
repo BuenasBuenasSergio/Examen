@@ -9,6 +9,7 @@
 <title>Actors</title>
 </head>
 <body>
+<h1>Actor</h1>
 <form action="/insertActor" method="post">
 		<span>Name:</span> <input type="text" name="name"> <br />
 		<span>Birth year:</span> <input type="text" name="birthYear"><br/> 
@@ -46,6 +47,6 @@
 		</tbody>
 	</table>
 	<br/>
-	<a href="/index.jsp">Back to Index</a><br/>
+	<a href="/index">Index</a><br/>
 </body>
 </html>

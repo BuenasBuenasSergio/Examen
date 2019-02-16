@@ -7,6 +7,7 @@
 <title>Welcome</title>
 </head>
 <body>
+<h1>Welcome to IMBD</h1><h6> by example</h6>
 	<a href="/actor">Actors</a><br/>
 	<a href="/director">Directors</a><br/>
 	<a href="/film">Films</a><br/>

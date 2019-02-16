@@ -24,11 +24,11 @@ public class ActorController {
 	}
 
 	@GetMapping("/deleteActor")
-	protected String deleteActor(@RequestParam Integer cod) {
+	protected ModelAndView deleteActor(@RequestParam Integer cod) {
 		if (cod != null) {
 			service.delete(cod);
 		}
-		return "actor";
+		return loadList();
 	}
 
 	@GetMapping("/actor")

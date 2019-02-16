@@ -7,6 +7,7 @@
 <title>Film Actor Details</title>
 </head>
 <body>
+<h1>Actor in Film</h1>
 	<%
 		request.getAttribute("codFilm");
 		request.getAttribute("codActor");

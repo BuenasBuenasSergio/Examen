@@ -6,16 +6,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Choose ome actor</title>
+<title>Choose  actor</title>
 </head>
 <body>
 
-	<%
-		List<Actor> listAllActor = (List<Actor>) request.getAttribute("listAllActor");
-		String filmCod = (String)request.getParameter("filmCod");
-		request.setAttribute("filmCod", filmCod);
-	%>
-
+<h1>Chose actors</h1>
 	<table border="1">
 		<thead>
 			<tr>
